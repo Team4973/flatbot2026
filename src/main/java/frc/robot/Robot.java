@@ -4,19 +4,21 @@
 
 package frc.robot;
 
+import frc.robot.RobotContainer;
+
 import edu.wpi.first.util.sendable.SendableRegistry;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.Commands;
 
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.Utils;
-import com.ctre.phoenix6.controls.Follower;
 
-import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+
+
 
 /**
  * The methods in this class are called automatically corresponding to each mode, as described in
@@ -24,17 +26,17 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
  * this project, you must also update the manifest file in the resource directory.
  */
 public class Robot extends TimedRobot {
-  public final TalonFX motor1 = new TalonFX(1);
-  private final CommandXboxController m_controller = new CommandXboxController(0);
+ 
   private final Timer m_timer = new Timer();
+
+  private RobotContainer RobotContainer;
+
+
 
   /** Called once at the beginning of the robot program. */
   public Robot() {
-    m_controller.povUp().onTrue(
-      new InstantCommand(() -> {
-      motor1.set(.5);
-      })
-    );
+    System.out.println("Hello, World");
+    RobotContainer = new RobotContainer();
    }
 
   /** This function is run once each time the robot enters autonomous mode. */
@@ -65,4 +67,10 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during test mode. */
   @Override
   public void testPeriodic() {}
+
+  @Override
+  public void robotPeriodic() {
+    CommandScheduler.getInstance().run();
+  }
 }
+
